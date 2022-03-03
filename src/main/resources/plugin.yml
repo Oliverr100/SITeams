@@ -1,0 +1,22 @@
+name: SITeams
+version: '${project.version}'
+main: me.banana.siteams.SITeams
+api-version: 1.18
+description: Survival Island Teams Plugin
+depend: [WorldGuard, WorldEdit, CMI]
+commands:
+  team:
+    description: join a team
+    usage: /<command>
+  tc:
+    description: shorthand for /team chat enable/disable
+    usage: /<command> [on/off]
+  minigame:
+    description: minigame
+    usage: /<command>
+  timer:
+    description: timer
+    usage: /<command> [start/stop]
+  checktokens:
+    description: used to spawn chests for players to input tokens and check how many they have entered
+    usage: /<command> [spawn/check]
