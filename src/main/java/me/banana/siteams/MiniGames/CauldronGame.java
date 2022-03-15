@@ -7,8 +7,8 @@ import me.banana.siteams.subcommands.MinigameCommands.Countdown;
 public class CauldronGame {
     //disable players from breaking or placing cauldrons
     public static void cauldronGame(String[] args) {
-        Countdown.CountdownStart();
         if(args[0].equalsIgnoreCase("start")) {
+            Countdown.CountdownStart();
             OnBlockBreak.DisableCauldronBreak(true);
             OnBlockPlace.DisableCauldronPlace(true);
         }else if (args[0].equalsIgnoreCase("stop")) {

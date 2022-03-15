@@ -6,7 +6,7 @@
 
     <groupId>me.banana</groupId>
     <artifactId>SITeams</artifactId>
-    <version>1.5.1.patch.so.the.chest.actually.spawns.in.the.correct.location-ALPHA</version>
+    <version>1.5.4.-ALPHA</version>
     <packaging>jar</packaging>
 
     <name>SITeams</name>

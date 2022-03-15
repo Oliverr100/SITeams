@@ -1,4 +1,4 @@
-package me.banana.siteams;
+package me.banana.siteams.AutoCompleate;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -15,7 +15,7 @@ public class MinigameTabCompleation implements TabCompleter {
     @Override
     public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String alias, @NotNull String[] args) {
         if(args.length == 1)    { return new ArrayList<>(Arrays.asList("start", "stop", "countdown")); }
-        else if(args.length == 2)   { return new ArrayList<>(List.of("ButtonGame", "CauldronGame")); }
+        else if(args.length == 2)   { return new ArrayList<>(List.of("ButtonGame", "CauldronGame", "CountKills")); }
 
         return null;
     }

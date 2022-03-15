@@ -2,14 +2,11 @@ package me.banana.siteams;
 
 import com.Zrips.CMI.CMI;
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
-import me.banana.siteams.Commands.CheckTokensCommand;
-import me.banana.siteams.Commands.MinigameCommand;
-import me.banana.siteams.Commands.TeamCommand;
-import me.banana.siteams.Commands.TimerCommand;
-import me.banana.siteams.events.OnJoin;
-import me.banana.siteams.events.OnMove;
-import me.banana.siteams.events.OnVerySpecificButtonPress;
-import me.banana.siteams.events.OnFish;
+import me.banana.siteams.AutoCompleate.FatalityTabCompleation;
+import me.banana.siteams.AutoCompleate.MinigameTabCompleation;
+import me.banana.siteams.AutoCompleate.TeamTabCompleation;
+import me.banana.siteams.Commands.*;
+import me.banana.siteams.events.*;
 import me.banana.siteams.utils.PointsStorageUtil;
 import net.luckperms.api.LuckPerms;
 import org.bukkit.Bukkit;
@@ -31,8 +28,6 @@ public final class SITeams extends JavaPlugin {
     static SITeams plugin;
     public static WorldGuardPlugin getWorldGuard() {
         Plugin plugin = getPlugin().getServer().getPluginManager().getPlugin("WorldGuard");
-
-
         if(!(plugin instanceof WorldGuardPlugin)){
             return null;
         }
@@ -58,10 +53,10 @@ public final class SITeams extends JavaPlugin {
            }
        }
 
-        RegisteredServiceProvider<LuckPerms> provider = Bukkit.getServicesManager().getRegistration(LuckPerms.class);
-        if (provider != null) {
-            LPapi = provider.getProvider();
-        }
+       RegisteredServiceProvider<LuckPerms> provider = Bukkit.getServicesManager().getRegistration(LuckPerms.class);
+       if (provider != null) {
+           LPapi = provider.getProvider();
+       }
        RegisteredServiceProvider<CMI> cmiprovider = Bukkit.getServicesManager().getRegistration(CMI.class);
        if (cmiprovider != null) {
        CMIapi = cmiprovider.getProvider();
@@ -75,22 +70,32 @@ public final class SITeams extends JavaPlugin {
        }
 
 
-        //register stuff
+        //events
         getServer().getPluginManager().registerEvents(new OnJoin(), this);
+        getServer().getPluginManager().registerEvents(new OnBlockPlace(), this);
+        getServer().getPluginManager().registerEvents(new OnBlockBreak(), this);
         getServer().getPluginManager().registerEvents(new OnMove(), this);
         getServer().getPluginManager().registerEvents(new OnVerySpecificButtonPress(), this);
         getServer().getPluginManager().registerEvents(new OnFish(), this);
+       getServer().getPluginManager().registerEvents(new OnDeath(), this);
+       //commands
         Objects.requireNonNull(this.getCommand("team")).setExecutor(new TeamCommand());
-        Objects.requireNonNull(this.getCommand("team")).setTabCompleter(new TeamTabCompleation());
+        Objects.requireNonNull(this.getCommand("fatality")).setExecutor(new FatalityCommand());
         Objects.requireNonNull(this.getCommand("minigame")).setExecutor(new MinigameCommand());
-       Objects.requireNonNull(this.getCommand("minigame")).setTabCompleter(new MinigameTabCompleation());
         Objects.requireNonNull(this.getCommand("Timer")).setExecutor(new TimerCommand());
-       Objects.requireNonNull(this.getCommand("checktokens")).setExecutor(new CheckTokensCommand());
+        Objects.requireNonNull(this.getCommand("checktokens")).setExecutor(new CheckTokensCommand());
+
+        // tabcompleation
+       Objects.requireNonNull(this.getCommand("fatality")).setTabCompleter(new FatalityTabCompleation());
+       Objects.requireNonNull(this.getCommand("team")).setTabCompleter(new TeamTabCompleation());
+       Objects.requireNonNull(this.getCommand("minigame")).setTabCompleter(new MinigameTabCompleation());
 
        getLogger().info("Survival Island Plugin Started (" + this.getDescription().getVersion() + ")");
     }
     public static World getWorld(){
         return(Bukkit.getWorlds().get(0));
     }
-
+    public static LuckPerms getLuckPerms(){
+        return LPapi;
+    }
 }

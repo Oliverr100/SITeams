@@ -20,3 +20,6 @@ commands:
   checktokens:
     description: used to spawn chests for players to input tokens and check how many they have entered
     usage: /<command> [spawn/check]
+  fatality:
+    description: add teams to fatality
+    usage: /<command> [team] [team]

@@ -3,12 +3,16 @@ package me.banana.siteams;
 import me.banana.siteams.Commands.TeamCommand;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Location;
+import org.bukkit.NamespacedKey;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
+import org.bukkit.persistence.PersistentDataContainer;
+import org.bukkit.persistence.PersistentDataType;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 
 public class GTC {
@@ -76,13 +80,13 @@ public class GTC {
         teamName = teamName.toLowerCase();
         return switch (teamName) {
             case "1", "bronzebarns" -> "BronzeBarns";
-            case "2", "scarletspoons" -> "ScarletSpoons";
-            case "3", "orangeotters" -> "OrangeOtters";
-            case "4", "yellowyoshis" -> "YellowYoshis";
+            case "8", "scarletspoons" -> "ScarletSpoons";
+            case "7", "orangeotters" -> "OrangeOtters";
+            case "6", "yellowyoshis" -> "YellowYoshis";
             case "5", "limeluigis" -> "LimeLuigis";
-            case "6", "cobaltchefs" -> "CobaltChefs";
-            case "7", "pinkpeppers" -> "PinkPeppers";
-            case "8", "magentamarios" ->"MagentaMarios";
+            case "4", "cobaltchefs" -> "CobaltChefs";
+            case "3", "pinkpeppers" -> "PinkPeppers";
+            case "2", "magentamarios" ->"MagentaMarios";
             case "none" -> "None";
             default -> null;
         };
@@ -109,6 +113,10 @@ public class GTC {
 
     public static org.bukkit.ChatColor translateColor(ChatColor x) {
         return org.bukkit.ChatColor.getByChar(x.getName());
+    }
+    public static String getTeam(Player p) {
+        PersistentDataContainer data = p.getPersistentDataContainer();
+        return((Objects.requireNonNull(data.get(new NamespacedKey(SITeams.getPlugin(), "team"), PersistentDataType.STRING))).toLowerCase());
     }
 
 

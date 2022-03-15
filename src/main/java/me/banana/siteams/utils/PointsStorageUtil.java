@@ -34,7 +34,6 @@ public class PointsStorageUtil {
     }
 
 
-
     public static void setPoints(String team, long points){
         map.computeIfPresent(team, (t, v) -> v = Math.toIntExact(points));
     }

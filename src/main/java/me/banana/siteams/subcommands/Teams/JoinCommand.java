@@ -2,15 +2,18 @@ package me.banana.siteams.subcommands.Teams;
 
 import me.banana.siteams.GTC;
 import me.banana.siteams.SITeams;
+import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
-import net.md_5.bungee.api.ChatColor;import org.bukkit.NamespacedKey;
+import org.bukkit.NamespacedKey;
 import org.bukkit.Sound;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class JoinCommand {
 
@@ -40,7 +43,18 @@ public class JoinCommand {
                     p.playSound(p.getLocation(), Sound.ENTITY_CREEPER_PRIMED, 100, 10);
 
                 } else {
+                    //LuckPerms lp = SITeams.getLuckPerms();
+                    //User user = lp.getPlayerAdapter(Player.class).getUser(rp); //get luckperms player
+                    //Group oldgroup = lp.getGroupManager().getGroup(team);
+                    //lp.getUserManager().
+                    Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "lp user " + rp.getName() + " parent remove " + GTC.getTeam(rp));
+                    //remove old team perms TODO figure out lp adding groups
+
                     data.set(new NamespacedKey(SITeams.getPlugin(), "team"), PersistentDataType.STRING, team);
+                    //set them to the team
+
+                    Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "lp user " + rp.getName() + " parent add " + team);
+                    // add new team perms
                     for(Player ppl : Bukkit.getOnlinePlayers()) {
                         if(ppl.isOp() && (!ppl.equals(p))){
                             ppl.sendMessage(GTC.getTeamColor(rp) + rp.getDisplayName() + " joined Team " + team);

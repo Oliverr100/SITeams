@@ -3,9 +3,11 @@ package me.banana.siteams.utils;
 import me.banana.siteams.GTC;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.*;
 
 import java.util.Arrays;
+import java.util.Objects;
 
 public class ScoreboardUtil {
 
@@ -19,13 +21,13 @@ public class ScoreboardUtil {
     public static Score score8;
 
 
-    public static Objective startScoreBoard(){
+    public static Objective startScoreBoard(String name){//Name is case sensitive make sure its right
         try {
             ScoreboardManager manager = Bukkit.getScoreboardManager();
             assert manager != null;
             Scoreboard board = manager.getNewScoreboard();
-            final Objective objective = board.registerNewObjective("ButtonPresses", "dummy", (ChatColor.GOLD + "Points"));
-            objective.setDisplayName(ChatColor.GOLD + "Button Pressed");
+            final Objective objective = board.registerNewObjective(name, "dummy", (ChatColor.GOLD + "Points"));
+            objective.setDisplayName(ChatColor.GOLD + name);
             objective.setDisplaySlot(DisplaySlot.SIDEBAR);
 
             Team team1 = board.registerNewTeam("BronzeBarns");
@@ -44,7 +46,6 @@ public class ScoreboardUtil {
             team7.setPrefix(GTC.getColor("MagentaMarios") + "MagentaMarios");
             Team team8 = board.registerNewTeam("PinkPeppers");
             team8.setPrefix(GTC.getColor("PinkPeppers") + "PinkPeppers");
-
             team1.addEntry(ChatColor.translateAlternateColorCodes('&', "&1"));
             team2.addEntry(ChatColor.translateAlternateColorCodes('&', "&2"));
             team3.addEntry(ChatColor.translateAlternateColorCodes('&', "&3"));
@@ -53,7 +54,6 @@ public class ScoreboardUtil {
             team6.addEntry(ChatColor.translateAlternateColorCodes('&', "&6"));
             team7.addEntry(ChatColor.translateAlternateColorCodes('&', "&7"));
             team8.addEntry(ChatColor.translateAlternateColorCodes('&', "&8"));
-
             score1 = objective.getScore(ChatColor.translateAlternateColorCodes('&', "&1"));
             score2 = objective.getScore(ChatColor.translateAlternateColorCodes('&', "&2"));
             score3 = objective.getScore(ChatColor.translateAlternateColorCodes('&', "&3"));
@@ -70,6 +70,9 @@ public class ScoreboardUtil {
             score6.setScore(0);
             score7.setScore(0);
             score8.setScore(0);
+            for (Player p : Bukkit.getOnlinePlayers()) {
+                p.setScoreboard(Objects.requireNonNull(objective.getScoreboard()));
+            }
             return objective;
         } catch(NullPointerException e) {
             Bukkit.getLogger().warning("Scoreboard Failed to Activate / is null, go show the error log below to banana");
@@ -88,6 +91,12 @@ public class ScoreboardUtil {
             case "MagentaMarios" -> score7.setScore(score7.getScore() + increment);
             case "PinkPeppers" -> score8.setScore(score8.getScore() + increment);
         };
+    }
+    public static void stopScoreboard(String name){
+        Objects.requireNonNull(ScoreboardUtil.startScoreBoard(name)).unregister();
+        for(Player p : Bukkit.getOnlinePlayers()){
+            p.getScoreboard().clearSlot(DisplaySlot.SIDEBAR);
+        }
     }
 }
 

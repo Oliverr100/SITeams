@@ -28,7 +28,6 @@ public class MinigameCommand implements CommandExecutor {
                 }
                 case "countdown" -> Countdown.CountdownStart();
             }
-
         }
         return true;
     }

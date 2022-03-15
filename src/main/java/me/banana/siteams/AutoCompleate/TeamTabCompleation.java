@@ -1,4 +1,4 @@
-package me.banana.siteams;
+package me.banana.siteams.AutoCompleate;
 
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
