@@ -30,7 +30,6 @@ public class PointsStorageUtil {
         Reader reader = Files.newBufferedReader(file.toPath());
         Type typeOf = new TypeToken<HashMap<String, Integer>>() {}.getType();
         map = gson.fromJson(reader, typeOf);
-        Bukkit.getLogger().info(map.toString());
     }
 
 
@@ -40,7 +39,7 @@ public class PointsStorageUtil {
 
     public static Integer getPoints(String team){
         team = team.toLowerCase();
-        return map.get(team);
+        return map.get(team.toLowerCase());
     }
 
     public static void savePoints() {

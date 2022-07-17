@@ -106,6 +106,20 @@ public class GTC {
             default -> null;
         };
     }
+    public static Integer fromTeamGetNUm(String teamName) {
+        return switch (teamName) {
+            case "BronzeBarns" -> 1;
+            case "ScarletSpoons" -> 2;
+            case "OrangeOtters" -> 3;
+            case "YellowYoshis" -> 4;
+            case "LimeLuigis" -> 5;
+            case "CobaltChefs" -> 6;
+            case "PinkPeppers" -> 7 ;
+            case "MagentaMarios" -> 8;
+            case "none" -> null;
+            default -> null;
+        };
+    }
 
     public static List<String> getTeamNames() {
         return new ArrayList<>( Arrays.asList("BronzeBarns", "ScarletSpoons", "OrangeOtters", "YellowYoshis", "LimeLuigis", "CobaltChefs", "PinkPeppers", "MagentaMarios", "BronzeBarns", "None"));  //make a list of the teamcolors

@@ -12,7 +12,7 @@ public class CheckTokensCommand implements CommandExecutor{
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
-        if(sender instanceof Player p && args.length > 0){
+        if(sender instanceof Player p && args.length > 0 && p.isOp()){
             if(args[0].equalsIgnoreCase("spawn")) CheckTokensSpawn.spawn(p);
             else if (args[0].equalsIgnoreCase("check")) CheckTokensCheck.check(p);
         }

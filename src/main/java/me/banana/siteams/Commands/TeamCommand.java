@@ -30,9 +30,9 @@ public class TeamCommand implements CommandExecutor {
 
             //execute correct command
             if (args.length > 0) {
-                if (args[0].equalsIgnoreCase("join")) {
+                if (args[0].equalsIgnoreCase("join") && p.isOp() ) { //needs to be op
                     JoinCommand.joinCommand(sender, args);
-                } else if (args[0].equalsIgnoreCase("tp")) {
+                } else if (args[0].equalsIgnoreCase("tp") && p.isOp()) { // needs to be op
                     TpCommand.tpcommand(sender, args);
                 } else if (args[0].equalsIgnoreCase("points")) {
                     PointsCommand.pointsCommand(sender, args);

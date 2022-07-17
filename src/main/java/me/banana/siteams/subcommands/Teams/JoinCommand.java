@@ -5,7 +5,6 @@ import me.banana.siteams.SITeams;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.NamespacedKey;
-import org.bukkit.Sound;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.persistence.PersistentDataContainer;
@@ -30,7 +29,7 @@ public class JoinCommand {
         if(teamcolors.contains(GTC.isValidTeam(team))) {
             team = GTC.isValidTeam(args[1]);
         for(Player onlineplayer : Bukkit.getOnlinePlayers()){   //check if player exists and is online
-            if(onlineplayer.getName().equals(targetp) ) {
+            if(onlineplayer.getName().equals(targetp.toLowerCase()) ) {
                 Player rp = onlineplayer.getPlayer();
                 assert rp != null;
 
@@ -40,15 +39,8 @@ public class JoinCommand {
                 assert currentTeam != null;
                 if(currentTeam.equals(team)){
                     p.sendMessage(GTC.getTeamColor(rp) + rp.getDisplayName() + " is already on Team " + GTC.getTeamColor(rp) + team);
-                    p.playSound(p.getLocation(), Sound.ENTITY_CREEPER_PRIMED, 100, 10);
-
                 } else {
-                    //LuckPerms lp = SITeams.getLuckPerms();
-                    //User user = lp.getPlayerAdapter(Player.class).getUser(rp); //get luckperms player
-                    //Group oldgroup = lp.getGroupManager().getGroup(team);
-                    //lp.getUserManager().
                     Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "lp user " + rp.getName() + " parent remove " + GTC.getTeam(rp));
-                    //remove old team perms TODO figure out lp adding groups
 
                     data.set(new NamespacedKey(SITeams.getPlugin(), "team"), PersistentDataType.STRING, team);
                     //set them to the team

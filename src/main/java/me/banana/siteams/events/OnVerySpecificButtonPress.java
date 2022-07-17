@@ -25,8 +25,6 @@ public class OnVerySpecificButtonPress implements Listener {
                 if(e.getAction().equals(Action.RIGHT_CLICK_BLOCK) && !(button.isPowered())){
                     ScoreboardUtil.updateScore(TeamCommand.getTeam(e.getPlayer()), 1);
 
-
-
                 }
             }
         }
